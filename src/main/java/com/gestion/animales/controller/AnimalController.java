@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.gestion.animales.model.Animal;
 import com.gestion.animales.service.AnimalService;
+
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -55,66 +57,23 @@ public class AnimalController {
         try{
             Animal ani = animalService.findById(id);
             ani.setId(id);
-        }
-    }
-}
+            ani.setNombre(animal.getNombre());
+            ani.setEspecie(animal.getEspecie());
+            ani.setEstado(animal.getEstado());
+            ani.setGenero(animal.getGenero());
 
-/*
-@RestController
-@RequestMapping("/api/v1/pacientes")
-public class PacienteController {
-    @Autowired
-    private PacienteService pacienteService;
-
-    @GetMapping
-    public ResponseEntity<List<Paciente>> listar(){
-        List<Paciente> pacientes = pacienteService.findAll();
-        if(pacientes.isEmpty()){
-            return ResponseEntity.noContent().build();
-        }
-        return ResponseEntity.ok(pacientes);
-    }
-
-    @PostMapping
-    public ResponseEntity<Paciente> guardar(@RequestBody Paciente paciente){
-        Paciente productoNuevo = pacienteService.save(paciente);
-        return ResponseEntity.status(HttpStatus.CREATED).body(productoNuevo);
-    }
-    
-    @GetMapping("/{id}")
-    public ResponseEntity<Paciente> buscar(@PathVariable Integer id){
-        try{
-            Paciente paciente = pacienteService.findById(id);
-            return ResponseEntity.ok(paciente);
-        }
-        catch(Exception e){
-            return ResponseEntity.notFound().build();
-        }
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<Paciente> actualizar(@PathVariable Integer id, @RequestBody Paciente paciente){
-        try{
-            Paciente pac = pacienteService.findById(id);
-            pac.setId(id);
-            pac.setRun(paciente.getRun());
-            pac.setNombres(paciente.getNombres());
-            pac.setApellidos(paciente.getApellidos());
-            pac.setFecha_nacimiento(paciente.getFecha_nacimiento());
-            pac.setCorreo(paciente.getCorreo());
-
-            pacienteService.save(pac);
-            return ResponseEntity.ok(paciente);
+            animalService.save(ani);
+            return ResponseEntity.ok(animal);
         }
         catch(Exception e){
             return ResponseEntity.notFound().build();
         }
     }
     
-    @DeleteMapping("/{id}")
+    @DeleteMapping("{id}")
     public ResponseEntity<?> eliminar(@PathVariable Integer id){
         try{
-            pacienteService.delete(id);
+            animalService.delete(id);
             return ResponseEntity.noContent().build();
         }
         catch(Exception e){
@@ -122,4 +81,3 @@ public class PacienteController {
         }
     }
 }
-*/
