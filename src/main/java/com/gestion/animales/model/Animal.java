@@ -28,4 +28,7 @@ public class Animal {
 
     @Column(name = "estado_animal",length = 200)
     private String estado;
+
+    @Column(name = "estado_animal2",length = 200)
+    private String estado2;
 }
